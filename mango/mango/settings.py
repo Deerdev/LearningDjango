@@ -19,13 +19,25 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
+# Django项目实例的密钥。用于提供cryptographic签名，是一个唯一的并且不可预测的值
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 't0e3lg)awwbv^r$po^0)=rycgsnjctymtxuzqe1%hg_ki7hv&^'
 
+
+# 当DEBUG=False，并且一个视图引发了异常时,Django将会给这个列表里的人发一封含有完整异常信息的电子邮件
+# ADMINS = [('John', 'john@example.com'), ('Mary', 'mary@example.com')]
+
+
 # SECURITY WARNING: don't run with debug turned on in production!
+# 当DEBUG为False时，必须设置ALLOWED_HOSTS的值，用于生产环境
 DEBUG = True
 
 ALLOWED_HOSTS = []
+# 可以是localhost、www.example.com或者.example.com形式的域名
+# 可以是IP地址，比如：137.2.4.1、192.168.1.1、0.0.0.0、127.0.0.1
+# 可以是通配符'*'，表示所有外部主机都可以访问Django
+# 对于0.0.0.0，表示局域网内的主机都可以访问Django
+# 当DEBUG为True和ALLOWED_HOSTS为空时，默认相当于配置：['localhost'， '127.0.0.1'， '[:: 1]']。
 
 
 # Application definition
@@ -42,6 +54,7 @@ INSTALLED_APPS = [
     'polls',
 ]
 
+# 中间件
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -52,8 +65,10 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+# 表示根URLconf的完整Python导入路径
 ROOT_URLCONF = 'mango.urls'
 
+# Django模板系统相关的配置。列表中每一项都是一个字典类型数据（类似DATABASE配置），可以配置模板不同的功能。
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -70,6 +85,8 @@ TEMPLATES = [
     },
 ]
 
+# Django的内置服务器（例如runserver）将使用的WSGI应用程序对象的完整Python路径。
+# Django使用WSGI协议与外部进行通信
 WSGI_APPLICATION = 'mango.wsgi.application'
 
 
@@ -81,6 +98,19 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'), # 本地的存储文件
+    }
+}
+
+# mysql 配置
+MYSQL_DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': '123',
+        'USER': '123',
+        'PASSWORD': '123',
+        'PORT': 9220,
+        'HOST': '0.0.0.0',
+        'CONN_MAX_AGE': 5,
     }
 }
 
@@ -107,9 +137,13 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'zh-Hans'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Shanghai'
+
+# LANGUAGE_CODE = 'en-us'
+#
+# TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
@@ -122,3 +156,5 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+# 上传文件路径，MEDIA_ROOT和STATIC_ROOT必须设置为不同的
+MEDIA_ROOT = '/var/www/example.com/media/'
