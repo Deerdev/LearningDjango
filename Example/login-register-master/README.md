@@ -1,3 +1,5 @@
+> reference from www.liujiangblog.com
+
 ## 这是一个用户登录和注册教学项目
 ## 这是一个可重用的登录和注册APP
 ## 该项目教程发布在www.liujiangblog.com
